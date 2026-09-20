@@ -1,0 +1,39 @@
+{{define "content"}}
+<section class="quiz" data-slug="{{.Test.Slug}}">
+  <a class="back-link" href="/tests">← Все тесты</a>
+
+  <div class="quiz-progress">
+    <div class="quiz-progress-bar" data-role="progress-bar"></div>
+  </div>
+
+  <div data-role="question-view">
+    <p class="quiz-counter" data-role="counter"></p>
+    <h2 data-role="question-text" class="quiz-question"></h2>
+    <div class="quiz-options" data-role="options"></div>
+
+    <div class="quiz-nav">
+      <button type="button" class="btn btn-ghost" data-role="btn-back">← Назад</button>
+      <button type="button" class="btn btn-primary" data-role="btn-next" disabled>Далее →</button>
+    </div>
+  </div>
+
+  <div data-role="result-view" hidden>
+    <div class="result-card">
+      <img data-role="result-image" class="result-image" alt="">
+      <div class="result-text">
+        <p class="eyebrow" data-role="result-eyebrow">Твоя футболка</p>
+        <h2 data-role="result-name"></h2>
+        <p data-role="result-description"></p>
+      </div>
+    </div>
+    <div class="quiz-nav">
+      <button type="button" class="btn btn-ghost" data-role="btn-retry">Пройти ещё раз</button>
+      <a class="btn btn-primary" href="/tests">Другие тесты →</a>
+    </div>
+  </div>
+
+  <div data-role="error-view" class="quiz-error" hidden></div>
+</section>
+
+<script id="test-data" type="application/json">{{.TestJSON}}</script>
+{{end}}

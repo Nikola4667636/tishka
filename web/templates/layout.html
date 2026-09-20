@@ -1,0 +1,33 @@
+{{define "base"}}
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{.PageTitle}} — {{.Brand}}</title>
+  <meta name="description" content="Кастомные футболки, которые подбирает тест по твоему вайбу.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="/">{{.Brand}}</a>
+    <nav class="nav">
+      <a href="/">Главная</a>
+      <a href="/tests">Тесты</a>
+    </nav>
+  </header>
+
+  <main>
+    {{template "content" .}}
+  </main>
+
+  <footer class="site-footer">
+    <span>{{.Brand}} — мы помогаем человеку сказать о себе без слов.</span>
+  </footer>
+
+  <script src="/static/js/app.js"></script>
+</body>
+</html>
+{{end}}

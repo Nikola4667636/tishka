@@ -1,0 +1,4 @@
+/tishka-server
+/bin/
+*.exe
+.DS_Store

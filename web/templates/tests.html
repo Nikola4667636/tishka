@@ -1,0 +1,20 @@
+{{define "content"}}
+<section class="page-head">
+  <h1>Выбери тест</h1>
+  <p>Каждый тест — свой набор футболок в конце. Пройди один или все.</p>
+</section>
+
+<section class="tests-grid">
+  {{if not .Tests}}
+    <p class="empty-state">Тестов пока нет — загляни чуть позже.</p>
+  {{end}}
+  {{range .Tests}}
+  <a class="test-card" href="/tests/{{.Slug}}">
+    <div class="test-card-emoji">{{.Emoji}}</div>
+    <h3>{{.Title}}</h3>
+    <p>{{.Description}}</p>
+    <span class="test-card-meta">{{.Questions}} {{pluralize .Questions "вопрос" "вопроса" "вопросов"}} →</span>
+  </a>
+  {{end}}
+</section>
+{{end}}
