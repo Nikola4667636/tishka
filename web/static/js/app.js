@@ -129,6 +129,7 @@
   function retry() {
     answers = {};
     currentIndex = 0;
+    els.progressBar.style.width = "0%";
     els.resultView.hidden = true;
     els.questionView.hidden = false;
     renderQuestion();

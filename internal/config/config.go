@@ -29,7 +29,7 @@ func Load() Config {
 		TestsDir:     getEnv("TESTS_DIR", "data/tests"),
 		TemplatesDir: getEnv("TEMPLATES_DIR", "web/templates"),
 		StaticDir:    getEnv("STATIC_DIR", "web/static"),
-		BrandName:    getEnv("BRAND_NAME", "ТИШКА"),
+		BrandName:    getEnv("BRAND_NAME", "ПРИЗМА"),
 	}
 }
 

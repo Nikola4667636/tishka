@@ -5,14 +5,19 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{{.PageTitle}} — {{.Brand}}</title>
-  <meta name="description" content="Кастомные футболки, которые подбирает тест по твоему вайбу.">
+  <meta name="description" content="ПРИЗМА — кастомные футболки, которые подбирает тест по твоему вайбу.">
+  <link rel="icon" type="image/svg+xml" href="/static/favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/static/css/style.css">
 </head>
 <body>
   <header class="site-header">
-    <a class="brand" href="/">{{.Brand}}</a>
+    <a class="brand" href="/" aria-label="ПРИЗМА — на главную">
+      <!-- Синяя вариация логотипа — кликабельная, ведёт на главную -->
+      <img class="brand-logo brand-logo--blue" src="/static/logo-blue.svg" alt="ПРИЗМА" width="220" height="72">
+    </a>
     <nav class="nav">
       <a href="/">Главная</a>
       <a href="/tests">Тесты</a>
@@ -24,7 +29,8 @@
   </main>
 
   <footer class="site-footer">
-    <span>{{.Brand}} — мы помогаем человеку сказать о себе без слов.</span>
+    <span><span class="brand-mini">{{.Brand}}</span> — говори о себе без слов.</span>
+    <span>© {{.Brand}}</span>
   </footer>
 
   <script src="/static/js/app.js"></script>
