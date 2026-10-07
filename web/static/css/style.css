@@ -1,15 +1,5 @@
 /* ==========================================================================
    ПРИЗМА — дизайн-система
-   Палитра:
-     --indigo      #2C2E83  основной акцент (глубокий индиго)
-     --indigo-dark #1F2166  тёмный вариант для ховеров
-     --indigo-soft #E8E6F0  мягкая подложка
-     --carmine     #A60011  контрастный акцент (кармин)
-     --carmine-soft #F2D9DC мягкая подложка кармина
-     --cream       #F5F3EE  фон страницы
-     --ink         #1A1B3A  основной текст
-     --ink-soft    #6B6C8A  приглушённый текст
-     --line        #E2DFD6  границы/разделители
    ========================================================================== */
 
 :root {
@@ -91,24 +81,21 @@ main {
 
 /* ---------- логотипы: две вариации ---------- */
 
-/* Общая база для обоих лого */
 .brand-logo,
 .hero-logo {
   display: block;
   width: auto;
 }
 
-/* Синяя вариация — в шапке, кликабельная */
 .brand-logo--blue {
   height: 56px;
 }
 
-/* Белая вариация — внутри hero-карточки, декоративная */
 .hero-logo--white {
   height: 96px;
   margin: 0 0 24px;
-  pointer-events: none;   /* клики отключены */
-  user-select: none;      /* нельзя выделить мышью */
+  pointer-events: none;
+  user-select: none;
 }
 
 .nav {
@@ -268,8 +255,6 @@ main {
   margin-bottom: 20px;
 }
 
-/* Логотип внутри hero-карты — белый, декоративный.
-   Размеры и позиционирование заданы выше в .hero-logo--white */
 .hero-logo {
   position: relative;
 }
@@ -625,6 +610,218 @@ main {
 
 .result-text p { color: var(--ink-soft); margin: 0; }
 
+/* ---------- collections page ---------- */
+
+.collections {
+  padding: 32px 0 64px;
+  display: flex;
+  flex-direction: column;
+  gap: 72px;
+}
+
+.collection {
+  position: relative;
+}
+
+.collection__head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 24px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--line);
+  flex-wrap: wrap;
+}
+
+.collection__meta { max-width: 60ch; }
+
+.collection__eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--carmine);
+  margin: 0 0 8px;
+}
+
+.collection__title {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  color: var(--indigo);
+  margin: 0 0 6px;
+}
+
+.collection__desc {
+  color: var(--ink-soft);
+  margin: 0;
+  font-size: 15px;
+}
+
+.collection__actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.collection__count {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink-soft);
+  letter-spacing: 0.02em;
+}
+
+.prints-strip {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  gap: 8px;
+}
+
+.prints-track {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+  padding: 4px 4px 16px;
+  flex: 1;
+  cursor: grab;
+  scrollbar-width: thin;
+  scrollbar-color: var(--line) transparent;
+}
+
+.prints-track::-webkit-scrollbar { height: 6px; }
+.prints-track::-webkit-scrollbar-track { background: transparent; }
+.prints-track::-webkit-scrollbar-thumb {
+  background: var(--line);
+  border-radius: 999px;
+}
+
+.prints-track.is-dragging {
+  cursor: grabbing;
+  scroll-snap-type: none;
+}
+
+.prints-track.is-dragging .print-card {
+  pointer-events: none;
+}
+
+.strip-nav {
+  flex: 0 0 auto;
+  align-self: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1.5px solid var(--line);
+  background: var(--white);
+  color: var(--indigo);
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.15s ease, background 0.15s ease, transform 0.1s ease;
+}
+
+.strip-nav:hover {
+  border-color: var(--indigo);
+  background: var(--indigo-soft);
+}
+
+.strip-nav:active { transform: scale(0.94); }
+
+.strip-nav:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.print-card {
+  flex: 0 0 240px;
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+  border: 1.5px solid transparent;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+}
+
+.print-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-soft);
+  border-color: var(--indigo);
+}
+
+.print-card__image-wrap {
+  aspect-ratio: 4 / 5;
+  background: var(--indigo-soft);
+  overflow: hidden;
+}
+
+.print-card__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.35s ease;
+}
+
+.print-card:hover .print-card__image {
+  transform: scale(1.04);
+}
+
+.print-card__body {
+  padding: 18px 20px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+
+.print-card__name {
+  font-size: 16px;
+  margin: 0;
+  color: var(--ink);
+}
+
+.print-card__desc {
+  font-size: 13px;
+  color: var(--ink-soft);
+  margin: 0;
+  flex: 1;
+}
+
+.print-card__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.print-card__tags li {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: lowercase;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: var(--indigo-soft);
+  color: var(--indigo);
+}
+
+.print-card__price {
+  margin: 4px 0 0;
+  font-weight: 700;
+  color: var(--carmine);
+  font-size: 15px;
+}
+
 /* ---------- responsive ---------- */
 
 @media (max-width: 760px) {
@@ -639,4 +836,13 @@ main {
   .site-header { flex-direction: column; gap: 12px; align-items: flex-start; }
   .brand-logo--blue { height: 44px; }
   .nav { gap: 20px; }
+
+  .collection__head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  .print-card { flex: 0 0 200px; }
+  .strip-nav { display: none; }
+  .collections { gap: 56px; }
 }

@@ -92,6 +92,70 @@ func (s *Server) handleQuizPage(w http.ResponseWriter, r *http.Request) {
 	s.render(w, "quiz", data)
 }
 
+// ---------- GET /prints ----------
+//
+// Коллекция здесь — это тест, а принты — его результаты. Отдаём на
+// страницу полные тесты (с результатами), потому что карточки принтов
+// строятся именно из Results.
+
+type printsData struct {
+	baseData
+	Collections []models.Test
+}
+
+func (s *Server) handlePrintsList(w http.ResponseWriter, r *http.Request) {
+	collections, err := s.store.ListTestsFull(r.Context())
+	if err != nil {
+		s.log.Error("list tests (full)", "error", err)
+		http.Error(w, "Не получилось загрузить принты", http.StatusInternalServerError)
+		return
+	}
+
+	data := printsData{
+		baseData:    s.newBaseData("Все принты"),
+		Collections: collections,
+	}
+	s.render(w, "prints", data)
+}
+
+// ---------- GET /prints/{test}/{result} ----------
+
+type printData struct {
+	baseData
+	Collection models.Test
+	Print      models.Result
+}
+
+func (s *Server) handlePrintPage(w http.ResponseWriter, r *http.Request) {
+	testSlug := r.PathValue("test")
+	resultID := r.PathValue("result")
+
+	test, err := s.store.GetTest(r.Context(), testSlug)
+	if err != nil {
+		s.respondTestLookupError(w, err)
+		return
+	}
+
+	var found *models.Result
+	for i := range test.Results {
+		if test.Results[i].ID == resultID {
+			found = &test.Results[i]
+			break
+		}
+	}
+	if found == nil {
+		http.Error(w, "Принт не найден", http.StatusNotFound)
+		return
+	}
+
+	data := printData{
+		baseData:   s.newBaseData(found.Name),
+		Collection: *test,
+		Print:      *found,
+	}
+	s.render(w, "print", data)
+}
+
 // respondTestLookupError отвечает 404, если тест не найден, и 500 — на
 // любую другую ошибку стора. Общая для всех хендлеров, которым нужен
 // конкретный тест по slug.

@@ -22,6 +22,11 @@ type Store interface {
 	// используется на странице /tests.
 	ListTests(ctx context.Context) ([]models.TestSummary, error)
 
+	// ListTestsFull возвращает все тесты целиком (с вопросами и
+	// результатами). Используется на странице /prints, где каждый
+	// тест — это коллекция, а его результаты — карточки принтов.
+	ListTestsFull(ctx context.Context) ([]models.Test, error)
+
 	// GetTest возвращает тест целиком по его slug (например, "vibe-check").
 	// Если теста с таким slug нет — возвращает ErrNotFound.
 	GetTest(ctx context.Context, slug string) (*models.Test, error)

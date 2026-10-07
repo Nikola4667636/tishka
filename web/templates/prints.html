@@ -1,0 +1,70 @@
+{{define "content"}}
+<section class="page-head">
+  <h1>Все принты</h1>
+  <p>Каждая линейка — это история одного теста. Выбирай вайб, листай, находи свою.</p>
+</section>
+
+<section class="collections">
+  {{range .Collections}}
+  {{$collection := .}}
+  <article class="collection">
+
+    <!-- Шапка коллекции -->
+    <header class="collection__head">
+      <div class="collection__meta">
+        <p class="collection__eyebrow">Коллекция</p>
+        <h2 class="collection__title">{{.Title}}</h2>
+        <p class="collection__desc">{{.Description}}</p>
+      </div>
+
+      <div class="collection__actions">
+        <span class="collection__count">
+          {{len .Results}} {{pluralize (len .Results) "принт" "принта" "принтов"}}
+        </span>
+        <a class="btn btn-ghost" href="/tests/{{.Slug}}">
+          Пройти тест →
+        </a>
+      </div>
+    </header>
+
+    <!-- Горизонтальная лента принтов -->
+    <div class="prints-strip" data-role="strip">
+      <button type="button" class="strip-nav strip-nav--prev" aria-label="Назад" data-role="strip-prev">‹</button>
+
+      <div class="prints-track" data-role="strip-track">
+        {{range .Results}}
+        <a class="print-card" href="/prints/{{$collection.Slug}}/{{.ID}}">
+          <div class="print-card__image-wrap">
+            {{if .Image}}
+              <img class="print-card__image" src="/static/{{.Image}}" alt="{{.Name}}" loading="lazy">
+            {{else}}
+              <img class="print-card__image" src="/shirt-image-placeholder" alt="{{.Name}}" loading="lazy">
+            {{end}}
+          </div>
+          <div class="print-card__body">
+            <h3 class="print-card__name">{{.Name}}</h3>
+            <p class="print-card__desc">{{.Description}}</p>
+            {{if .Tags}}
+            <ul class="print-card__tags">
+              {{range .Tags}}<li>{{.}}</li>{{end}}
+            </ul>
+            {{end}}
+            {{if .Price}}
+            <p class="print-card__price">{{.Price}} ₽</p>
+            {{end}}
+          </div>
+        </a>
+        {{end}}
+      </div>
+
+      <button type="button" class="strip-nav strip-nav--next" aria-label="Вперёд" data-role="strip-next">›</button>
+    </div>
+
+  </article>
+  {{end}}
+
+  {{if not .Collections}}
+    <p class="empty-state">Коллекций пока нет — загляни позже.</p>
+  {{end}}
+</section>
+{{end}}

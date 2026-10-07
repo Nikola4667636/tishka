@@ -1,0 +1,32 @@
+{{define "content"}}
+<section class="quiz">
+  <a class="back-link" href="/prints">← Все принты</a>
+
+  <div class="result-card">
+    {{if .Print.Image}}
+      <img class="result-image" src="/static/{{.Print.Image}}" alt="{{.Print.Name}}">
+    {{else}}
+      <img class="result-image" src="/shirt-image-placeholder" alt="{{.Print.Name}}">
+    {{end}}
+    <div class="result-text">
+      <p class="eyebrow">Коллекция «{{.Collection.Title}}»</p>
+      <h2>{{.Print.Name}}</h2>
+      {{if .Print.Quote}}<p><em>«{{.Print.Quote}}»</em></p>{{end}}
+      <p>{{.Print.Description}}</p>
+      {{if .Print.Tags}}
+        <ul class="print-card__tags">
+          {{range .Print.Tags}}<li>{{.}}</li>{{end}}
+        </ul>
+      {{end}}
+      {{if .Print.Price}}<p><strong>{{.Print.Price}} ₽</strong></p>{{end}}
+    </div>
+  </div>
+
+  <div class="quiz-nav">
+    <a class="btn btn-ghost" href="/prints">Ко всем принтам</a>
+    <a class="btn btn-accent" href="/tests/{{.Collection.Slug}}">
+      Пройти тест «{{.Collection.Title}}» →
+    </a>
+  </div>
+</section>
+{{end}}

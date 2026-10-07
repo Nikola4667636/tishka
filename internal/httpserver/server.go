@@ -29,9 +29,11 @@ type Server struct {
 // Чтобы добавить новую страницу: создать web/templates/имя.html с блоком
 // {{define "content"}}...{{end}} и одной строкой добавить его сюда.
 var pageTemplates = map[string]string{
-	"index": "index.html",
-	"tests": "tests.html",
-	"quiz":  "quiz.html",
+	"index":  "index.html",
+	"tests":  "tests.html",
+	"quiz":   "quiz.html",
+	"prints": "prints.html",
+	"print":  "print.html",
 }
 
 // New собирает Server: загружает и парсит HTML-шаблоны из cfg.TemplatesDir.
@@ -70,6 +72,8 @@ func (s *Server) Handler() http.Handler {
 	mux.HandleFunc("GET /{$}", s.handleIndex)
 	mux.HandleFunc("GET /tests", s.handleTestsList)
 	mux.HandleFunc("GET /tests/{slug}", s.handleQuizPage)
+	mux.HandleFunc("GET /prints", s.handlePrintsList)
+	mux.HandleFunc("GET /prints/{test}/{result}", s.handlePrintPage)
 
 	// JSON API
 	mux.HandleFunc("GET /api/tests/{slug}", s.handleAPIGetTest)

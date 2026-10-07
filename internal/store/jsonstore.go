@@ -15,7 +15,7 @@ import (
 // JSONStore читает тесты из *.json файлов в указанной директории.
 // Все файлы читаются один раз при вызове Load() (обычно — при старте
 // сервера) и дальше отдаются из памяти, поэтому чтение теста — это просто
-// обращение к map, без дисковых операций на каждый HTTP-запрos.
+// обращение к map, без дисковых операций на каждый HTTP-запрос.
 //
 // Чтобы добавить новый тест в продакшене: положить новый файл вида
 // data/tests/my-test.json (см. формат в internal/models.Test и в
@@ -104,6 +104,18 @@ func (s *JSONStore) ListTests(_ context.Context) ([]models.TestSummary, error) {
 		summaries = append(summaries, s.tests[slug].Summary())
 	}
 	return summaries, nil
+}
+
+// ListTestsFull реализует интерфейс Store.
+func (s *JSONStore) ListTestsFull(_ context.Context) ([]models.Test, error) {
+	s.mu.RLock()
+	defer s.mu.RUnlock()
+
+	out := make([]models.Test, 0, len(s.order))
+	for _, slug := range s.order {
+		out = append(out, s.tests[slug])
+	}
+	return out, nil
 }
 
 // GetTest реализует интерфейс Store.
