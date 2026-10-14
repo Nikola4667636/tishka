@@ -11,15 +11,17 @@ import (
 )
 
 // baseData — поля, нужные всем страницам (шапка, футер, <title>).
-// Каждая страница встраивает baseData в свою собственную структуру
-// данных и добавляет то, что нужно только ей.
+// Page — короткий идентификатор страницы ("index", "tests", "quiz",
+// "prints", "print"): подставляется в <body data-page="..."> и
+// используется в CSS, чтобы менять поведение декора на разных страницах.
 type baseData struct {
 	Brand     string
 	PageTitle string
+	Page      string
 }
 
-func (s *Server) newBaseData(pageTitle string) baseData {
-	return baseData{Brand: s.cfg.BrandName, PageTitle: pageTitle}
+func (s *Server) newBaseData(page, pageTitle string) baseData {
+	return baseData{Brand: s.cfg.BrandName, PageTitle: pageTitle, Page: page}
 }
 
 // ---------- GET / ----------
@@ -29,7 +31,7 @@ type indexData struct {
 }
 
 func (s *Server) handleIndex(w http.ResponseWriter, r *http.Request) {
-	data := indexData{baseData: s.newBaseData("Кастомные футболки по вайбу")}
+	data := indexData{baseData: s.newBaseData("index", "Кастомные футболки по вайбу")}
 	s.render(w, "index", data)
 }
 
@@ -49,7 +51,7 @@ func (s *Server) handleTestsList(w http.ResponseWriter, r *http.Request) {
 	}
 
 	data := testsData{
-		baseData: s.newBaseData("Тесты"),
+		baseData: s.newBaseData("tests", "Тесты"),
 		Tests:    tests,
 	}
 	s.render(w, "tests", data)
@@ -82,7 +84,7 @@ func (s *Server) handleQuizPage(w http.ResponseWriter, r *http.Request) {
 	}
 
 	data := quizData{
-		baseData: s.newBaseData(test.Title),
+		baseData: s.newBaseData("quiz", test.Title),
 		Test:     publicTest,
 		// jsonBytes собран из данных, которые мы сами же валидировали при
 		// загрузке (models.Test.Validate), поэтому безопасно пометить их
@@ -112,7 +114,7 @@ func (s *Server) handlePrintsList(w http.ResponseWriter, r *http.Request) {
 	}
 
 	data := printsData{
-		baseData:    s.newBaseData("Все принты"),
+		baseData:    s.newBaseData("prints", "Все принты"),
 		Collections: collections,
 	}
 	s.render(w, "prints", data)
@@ -149,7 +151,7 @@ func (s *Server) handlePrintPage(w http.ResponseWriter, r *http.Request) {
 	}
 
 	data := printData{
-		baseData:   s.newBaseData(found.Name),
+		baseData:   s.newBaseData("print", found.Name),
 		Collection: *test,
 		Print:      *found,
 	}

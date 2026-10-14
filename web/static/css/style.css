@@ -3,24 +3,28 @@
    ========================================================================== */
 
 :root {
-  --indigo: #2C2E83;
-  --indigo-dark: #1F2166;
-  --indigo-soft: #E8E6F0;
+  --indigo: #2447A8;
+  --indigo-dark: #183477;
+  --indigo-soft: #E4EDFF;
   --carmine: #A60011;
   --carmine-dark: #7E000D;
   --carmine-soft: #F2D9DC;
-  --cream: #F5F3EE;
-  --ink: #1A1B3A;
-  --ink-soft: #6B6C8A;
-  --line: #E2DFD6;
+
+  /* Фон заметно синее. */
+  --cream: #D7E3FA;
+  --cream-deep: #C2D3F5;
+
+  --ink: #172447;
+  --ink-soft: #64718D;
+  --line: #D9E3F4;
   --white: #ffffff;
 
   --radius-lg: 20px;
   --radius-md: 14px;
   --radius-sm: 8px;
 
-  --shadow-soft: 0 8px 28px rgba(44, 46, 131, 0.08);
-  --shadow-card: 0 4px 16px rgba(26, 27, 58, 0.06);
+  --shadow-soft: 0 12px 32px rgba(28, 57, 120, 0.12);
+  --shadow-card: 0 6px 22px rgba(28, 57, 120, 0.07);
 
   --font-display: "Unbounded", "Playfair Display", Georgia, serif;
   --font-body: "Inter", "Nunito", system-ui, -apple-system, sans-serif;
@@ -31,12 +35,22 @@
 html, body {
   margin: 0;
   padding: 0;
-  background: var(--cream);
   color: var(--ink);
   font-family: var(--font-body);
   font-size: 16px;
   line-height: 1.55;
   -webkit-font-smoothing: antialiased;
+}
+
+body {
+  min-height: 100vh;
+  background:
+    radial-gradient(1100px 600px at 15% -5%, #EAF1FF 0%, transparent 60%),
+    radial-gradient(900px 700px at 110% 15%, #E3ECFF 0%, transparent 55%),
+    linear-gradient(180deg, var(--cream) 0%, var(--cream-deep) 100%);
+  background-attachment: fixed;
+  position: relative;
+  overflow-x: hidden;
 }
 
 h1, h2, h3, h4 {
@@ -53,13 +67,216 @@ h2 { font-size: clamp(1.5rem, 3vw, 2rem); }
 h3 { font-size: 1.15rem; }
 
 p { margin: 0 0 1em; }
-
 a { color: inherit; text-decoration: none; }
 
 main {
   max-width: 1040px;
   margin: 0 auto;
   padding: 0 24px 96px;
+  position: relative;
+  z-index: 1;
+}
+
+/* ==========================================================================
+   Фоновые декоративные иллюстрации
+   ========================================================================== */
+
+.bg-decor {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  user-select: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.bg-decor__item {
+  position: absolute;
+  display: block;
+  /* Насыщенность держим за счёт opacity + drop-shadow, без saturate(),
+     чтобы родной цвет иконок (carmine, indigo, зелёный, ч/б) звучал. */
+  opacity: 0.38;
+  filter: drop-shadow(0 6px 14px rgba(28, 57, 120, 0.10));
+  will-change: transform;
+}
+
+/* ---------- верхняя зона: carmine, около hero ---------- */
+
+/* очки — правый верх */
+.bg-decor__item--1 {
+  top: 5%;
+  right: 4%;
+  width: 170px;
+  transform: rotate(-12deg);
+  opacity: 0.45;
+}
+
+/* шлем-профиль — левый верх (единственный на этом «этаже») */
+.bg-decor__item--2 {
+  top: 14%;
+  left: 3%;
+  width: 150px;
+  transform: rotate(10deg);
+  opacity: 0.38;
+}
+
+/* кубок — центр-верх */
+.bg-decor__item--3 {
+  top: 24%;
+  left: 38%;
+  width: 130px;
+  transform: rotate(6deg);
+  opacity: 0.30;
+}
+
+/* номер 27 — правый центр */
+.bg-decor__item--4 {
+  top: 38%;
+  right: 8%;
+  width: 200px;
+  transform: rotate(-8deg);
+  opacity: 0.34;
+}
+
+/* ---------- средняя зона: indigo, культура ---------- */
+
+/* книги — левый центр */
+.bg-decor__item--5 {
+  top: 46%;
+  left: 5%;
+  width: 160px;
+  transform: rotate(8deg);
+  opacity: 0.38;
+}
+
+/* кафе — правый центр-низ */
+.bg-decor__item--6 {
+  top: 58%;
+  right: 6%;
+  width: 180px;
+  transform: rotate(-6deg);
+  opacity: 0.34;
+}
+
+/* ---------- нижняя зона: зелёные, природа ---------- */
+
+/* чайка — центр-низ */
+.bg-decor__item--7 {
+  top: 66%;
+  left: 52%;
+  width: 160px;
+  transform: rotate(4deg);
+  opacity: 0.34;
+}
+
+/* удочка — левый низ */
+.bg-decor__item--8 {
+  top: 76%;
+  left: 4%;
+  width: 190px;
+  transform: rotate(-10deg);
+  opacity: 0.32;
+}
+
+/* гриль — правый низ */
+.bg-decor__item--9 {
+  top: 86%;
+  right: 5%;
+  width: 170px;
+  transform: rotate(6deg);
+  opacity: 0.30;
+}
+
+/* ---------- ч/б спорт: разбросаны по центру и краям ---------- */
+
+/* гантель — лево-центр */
+.bg-decor__item--10 {
+  top: 32%;
+  left: 20%;
+  width: 110px;
+  transform: rotate(14deg);
+  opacity: 0.28;
+}
+
+/* скакалка — центр-низ */
+.bg-decor__item--11 {
+  top: 54%;
+  left: 30%;
+  width: 120px;
+  transform: rotate(-10deg);
+  opacity: 0.28;
+}
+
+/* баскетбол — правый центр */
+.bg-decor__item--12 {
+  top: 48%;
+  right: 24%;
+  width: 110px;
+  transform: rotate(8deg);
+  opacity: 0.28;
+}
+
+/* теннис-ракетка — центр-низ */
+.bg-decor__item--13 {
+  top: 80%;
+  left: 42%;
+  width: 120px;
+  transform: rotate(-14deg);
+  opacity: 0.28;
+}
+
+/* клюшка — лево-центр-низ */
+.bg-decor__item--14 {
+  top: 62%;
+  left: 12%;
+  width: 130px;
+  transform: rotate(10deg);
+  opacity: 0.28;
+}
+
+/* ---------- поведение на разных страницах ---------- */
+
+/* quiz и print — рабочие страницы, читаемость важнее декора.
+   Оставляем только два самых ненавязчивых пятна. */
+body[data-page="quiz"] .bg-decor__item,
+body[data-page="print"] .bg-decor__item {
+  opacity: 0.06;
+}
+body[data-page="quiz"] .bg-decor__item--3,
+body[data-page="quiz"] .bg-decor__item--10,
+body[data-page="quiz"] .bg-decor__item--11,
+body[data-page="quiz"] .bg-decor__item--12,
+body[data-page="quiz"] .bg-decor__item--13,
+body[data-page="quiz"] .bg-decor__item--14,
+body[data-page="print"] .bg-decor__item--3,
+body[data-page="print"] .bg-decor__item--10,
+body[data-page="print"] .bg-decor__item--11,
+body[data-page="print"] .bg-decor__item--12,
+body[data-page="print"] .bg-decor__item--13,
+body[data-page="print"] .bg-decor__item--14 {
+  display: none;
+}
+
+/* ---------- адаптив ---------- */
+
+@media (max-width: 900px) {
+  .bg-decor__item { opacity: 0.22; }
+}
+@media (max-width: 700px) {
+  .bg-decor__item--2,
+  .bg-decor__item--3,
+  .bg-decor__item--5,
+  .bg-decor__item--6,
+  .bg-decor__item--7,
+  .bg-decor__item--8,
+  .bg-decor__item--9,
+  .bg-decor__item--10,
+  .bg-decor__item--11,
+  .bg-decor__item--12,
+  .bg-decor__item--13,
+  .bg-decor__item--14 { display: none; }
+  .bg-decor__item--1,
+  .bg-decor__item--4 { opacity: 0.14; }
 }
 
 /* ---------- header ---------- */
@@ -71,6 +288,8 @@ main {
   max-width: 1040px;
   margin: 0 auto;
   padding: 24px 24px 20px;
+  position: relative;
+  z-index: 2;
 }
 
 .site-header .brand {
@@ -79,7 +298,7 @@ main {
   line-height: 0;
 }
 
-/* ---------- логотипы: две вариации ---------- */
+/* ---------- логотипы ---------- */
 
 .brand-logo,
 .hero-logo {
@@ -87,9 +306,7 @@ main {
   width: auto;
 }
 
-.brand-logo--blue {
-  height: 56px;
-}
+.brand-logo--blue { height: 56px; }
 
 .hero-logo--white {
   height: 96px;
@@ -139,6 +356,8 @@ main {
   justify-content: space-between;
   gap: 16px;
   flex-wrap: wrap;
+  position: relative;
+  z-index: 2;
 }
 
 .site-footer .brand-mini {
@@ -201,9 +420,7 @@ main {
   border: 1.5px solid var(--indigo);
 }
 
-.btn-ghost:hover {
-  background: var(--indigo-soft);
-}
+.btn-ghost:hover { background: var(--indigo-soft); }
 
 /* ---------- landing: hero ---------- */
 
@@ -213,6 +430,8 @@ main {
   gap: 32px;
   align-items: stretch;
   padding: 24px 0 48px;
+  position: relative;
+  z-index: 1;
 }
 
 .hero-card {
@@ -226,6 +445,7 @@ main {
   flex-direction: column;
   justify-content: space-between;
   min-height: 360px;
+  box-shadow: var(--shadow-soft);
 }
 
 .hero-card::before {
@@ -255,9 +475,7 @@ main {
   margin-bottom: 20px;
 }
 
-.hero-logo {
-  position: relative;
-}
+.hero-logo { position: relative; }
 
 .hero-card h1 {
   position: relative;
@@ -292,6 +510,7 @@ main {
   align-items: center;
   justify-content: center;
   min-height: 200px;
+  box-shadow: var(--shadow-soft);
 }
 
 .hero-visual::after {
@@ -357,6 +576,8 @@ main {
   padding: 48px 12px 32px;
   max-width: 720px;
   margin: 0 auto;
+  position: relative;
+  z-index: 1;
 }
 
 .pitch-lead {
@@ -380,7 +601,11 @@ main {
 
 /* ---------- landing: how ---------- */
 
-.how { padding: 32px 0 8px; }
+.how {
+  padding: 32px 0 8px;
+  position: relative;
+  z-index: 1;
+}
 
 .how h2 {
   text-align: center;
@@ -419,7 +644,12 @@ main {
 
 /* ---------- tests list ---------- */
 
-.page-head { padding: 48px 0 8px; text-align: center; }
+.page-head {
+  padding: 48px 0 8px;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
 
 .page-head h1 { margin-bottom: 8px; }
 .page-head p { color: var(--ink-soft); }
@@ -429,6 +659,8 @@ main {
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 20px;
   padding: 32px 0;
+  position: relative;
+  z-index: 1;
 }
 
 .test-card {
@@ -472,11 +704,21 @@ main {
   letter-spacing: 0.02em;
 }
 
-.empty-state { text-align: center; color: var(--ink-soft); grid-column: 1 / -1; }
+.empty-state {
+  text-align: center;
+  color: var(--ink-soft);
+  grid-column: 1 / -1;
+}
 
 /* ---------- quiz ---------- */
 
-.quiz { padding: 32px 0; max-width: 640px; margin: 0 auto; }
+.quiz {
+  padding: 32px 0;
+  max-width: 640px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
 
 .back-link {
   display: inline-block;
@@ -617,11 +859,11 @@ main {
   display: flex;
   flex-direction: column;
   gap: 72px;
+  position: relative;
+  z-index: 1;
 }
 
-.collection {
-  position: relative;
-}
+.collection { position: relative; }
 
 .collection__head {
   display: flex;
@@ -770,9 +1012,7 @@ main {
   transition: transform 0.35s ease;
 }
 
-.print-card:hover .print-card__image {
-  transform: scale(1.04);
-}
+.print-card:hover .print-card__image { transform: scale(1.04); }
 
 .print-card__body {
   padding: 18px 20px 20px;
@@ -825,9 +1065,7 @@ main {
 /* ---------- responsive ---------- */
 
 @media (max-width: 760px) {
-  .hero {
-    grid-template-columns: 1fr;
-  }
+  .hero { grid-template-columns: 1fr; }
   .hero-card { padding: 40px 28px 36px; min-height: auto; }
   .hero-logo--white { height: 72px; }
   .how-steps { grid-template-columns: 1fr; }

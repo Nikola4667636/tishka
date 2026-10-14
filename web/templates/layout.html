@@ -12,7 +12,35 @@
   <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/static/css/style.css">
 </head>
-<body>
+<body data-page="{{.Page}}">
+
+  <!-- Декоративные иллюстрации на фоне — общие для всех страниц.
+       aria-hidden для скринридеров, pointer-events: none в CSS.
+       На «рабочих» страницах (quiz, print) приглушаются через body[data-page]. -->
+  <div class="bg-decor" aria-hidden="true">
+    <!-- carmine: скорость / авто -->
+    <img class="bg-decor__item bg-decor__item--1" src="/static/images/illustrations/01_sunglasses.svg" alt="" loading="lazy">
+    <img class="bg-decor__item bg-decor__item--2" src="/static/images/illustrations/03_helmet.svg" alt="" loading="lazy">
+    <img class="bg-decor__item bg-decor__item--3" src="/static/images/illustrations/12_trophy.svg" alt="" loading="lazy">
+    <img class="bg-decor__item bg-decor__item--4" src="/static/images/illustrations/13_number_27.svg" alt="" loading="lazy">
+
+    <!-- indigo: культура / город -->
+    <img class="bg-decor__item bg-decor__item--5" src="/static/images/illustrations/books.svg" alt="" loading="lazy">
+    <img class="bg-decor__item bg-decor__item--6" src="/static/images/illustrations/cafe.svg" alt="" loading="lazy">
+
+    <!-- зелёные: природа / отдых -->
+    <img class="bg-decor__item bg-decor__item--7" src="/static/images/illustrations/21_seagull.svg" alt="" loading="lazy">
+    <img class="bg-decor__item bg-decor__item--8" src="/static/images/illustrations/20_fishing_rod.svg" alt="" loading="lazy">
+    <img class="bg-decor__item bg-decor__item--9" src="/static/images/illustrations/19_grill.svg" alt="" loading="lazy">
+
+    <!-- ч/б: спорт / фитнес -->
+    <img class="bg-decor__item bg-decor__item--10" src="/static/images/illustrations/fitness_02_dumbbell_b.svg" alt="" loading="lazy">
+    <img class="bg-decor__item bg-decor__item--11" src="/static/images/illustrations/fitness_07_jump_rope.svg" alt="" loading="lazy">
+    <img class="bg-decor__item bg-decor__item--12" src="/static/images/illustrations/sport_01_basketball.svg" alt="" loading="lazy">
+    <img class="bg-decor__item bg-decor__item--13" src="/static/images/illustrations/sport_03_tennis_racket.svg" alt="" loading="lazy">
+    <img class="bg-decor__item bg-decor__item--14" src="/static/images/illustrations/sport_11_hockey_stick.svg" alt="" loading="lazy">
+  </div>
+
   <header class="site-header">
     <a class="brand" href="/" aria-label="ПРИЗМА — на главную">
       <!-- Синяя вариация логотипа — кликабельная, ведёт на главную -->
